@@ -33,7 +33,7 @@ jobs:
         run: mvn -ntp -B -e deploy -DskipTests -Prelease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
-      - uses: lorislab/install-changelog-action@v1
+      - uses: lorislab/install-changelog-action@v1.0.1
       - name: Create changelog
         if: ${{ inputs.changelog }}        
         run: changelog generate --create-release --close-version --file .github/changelog.yaml
