@@ -16,9 +16,9 @@ jobs:
   build:
     name: build and deploy project
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write    
+    # permissions:
+    #   contents: write
+    #   packages: write    
     steps:
       - uses: actions/checkout@v3
       - name: Set up java
@@ -33,10 +33,8 @@ jobs:
         run: mvn -ntp -B -e deploy -DskipTests -Prelease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
-      - name: Create release
-        if: ${{ inputs.changelog }}
-        uses: lorislab/changelog-action@v1.0.0
-        with:
-          args: generate --create-release --close-version --file .github/changelog.yaml
+      - uses: lorislab/install-changelog-action@v1
+        if: ${{ inputs.changelog }}        
+        run: changelog generate --create-release --close-version --file .github/changelog.yaml
         env:
           CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
