@@ -23,7 +23,7 @@ on:
 
 jobs:
   java:
-    uses: onecx/ci-java-lib/build.yml@v1
+    uses: onecx/ci-java-lib/.github/workflows/build.yml@v1
     secrets: inherit
 ```
 
@@ -39,7 +39,7 @@ on:
     - '**'
 jobs:
   java:
-    uses: onecx/ci-java-lib/build-release.yml@v1
+    uses: onecx/ci-java-lib/.github/workflows/build-release.yml@v1
     secrets: inherit
 ```
 For a Maven-based project, you can make use of these settings by creating a distribution repository in your pom.xml file with an id of `github` that points to your GitHub Packages endpoint.
@@ -103,7 +103,7 @@ on:
   workflow_dispatch:
 jobs:
   release:
-    uses: onecx/ci-java-lib/create-release.yml@v1
+    uses: onecx/ci-java-lib/.github/workflows/create-release.yml@v1
     secrets: inherit
 ```
 
@@ -127,7 +127,7 @@ on:
   workflow_dispatch:
 jobs:
   fix:
-    uses: onecx/ci-java-lib/create-fix-branch.yml@v1
+    uses: onecx/ci-java-lib/.github/workflows/create-fix-branch.yml@v1
     secrets: inherit
 ```
 
