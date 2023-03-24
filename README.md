@@ -1,5 +1,7 @@
 # Onecx java library Github Actions
 
+[![License](https://img.shields.io/github/license/lorislab/changelog?style=for-the-badge&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
+
 Onecx java library actions
 
 * build.yml - build the java project. 
