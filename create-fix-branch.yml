@@ -1,0 +1,23 @@
+name: Create fix branch
+on:
+  workflow_call:
+
+jobs:
+  fix:
+    name: create fix branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.TKIT_CI_PAT }}
+      - name: Config git
+        run: |
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Create release
+        uses: lorislab/samo-action@v1.0.0
+        with:
+          entrypoint: samo
+          args: project patch --tag ${{ github.ref_name }}
