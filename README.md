@@ -42,6 +42,17 @@ jobs:
     uses: onecx/ci-java-lib/build-release.yml@v1
     secrets: inherit
 ```
+For a Maven-based project, you can make use of these settings by creating a distribution repository in your pom.xml file with an id of `github` that points to your GitHub Packages endpoint.
+
+```xml
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub repository</name>
+      <url>https://maven.pkg.github.com/ORGANIZATION/PROJECT</url>
+    </repository>
+  </distributionManagement>
+```
 
 Build release by default generate a `changelog` in the project. Create a file `.github/changelog.yaml`
 For example:
@@ -57,7 +68,7 @@ sections:
     - "enhancement"
     - "dependencies"
 template: |
-  Plugin maven dependency:
+  Maven dependency:
   ```xml
   <dependencyManagement>
       <dependencies>
