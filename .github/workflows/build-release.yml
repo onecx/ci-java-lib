@@ -50,7 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy release to Maven central repository
-        if: ${{ inputs.repository == 'github' }}
+        if: ${{ inputs.repository == 'ossrh' }}
         run: mvn -ntp -B -e deploy -DskipTests -Prelease
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
