@@ -9,7 +9,7 @@ on:
         type: string
 jobs:
   build:
-    name: build library
+    name: build project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

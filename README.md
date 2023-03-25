@@ -44,7 +44,21 @@ jobs:
     uses: onecx/ci-java-lib/.github/workflows/build-release.yml@v1
     secrets: inherit
 ```
-For a Maven-based project, you can make use of these settings by creating a distribution repository in your pom.xml file with an id of `github` that points to your GitHub Packages endpoint.
+
+#### Maven central repository
+
+This is default option. These secrets needs to be confired:
+
+* `OSSRH_USERNAME` - the username for the sonatype Jira login
+* `OSSRH_PASSWORD` - the password for the sonatype Jira login
+* `OSSRH_GPG_SECRET_KEY` - gpg private key ( gpg --armor --export-secret-keys YOUR_KEY_ID )
+* `OSSRH_GPG_SECRET_KEY_PASSWORD` - gpg passphrase
+
+#### Github Packages
+
+> To use Github Packages as maven repository you need to setup an input variable `repository` to `github`.
+
+For a Maven-based project, you can make use of these settings by creating a distribution repository in your pom.xml file with an id of `github` that points to your GitHub Packages endpoint. 
 
 ```xml
   <distributionManagement>
@@ -55,6 +69,8 @@ For a Maven-based project, you can make use of these settings by creating a dist
     </repository>
   </distributionManagement>
 ```
+
+#### Changelog
 
 Build release by default generate a `changelog` in the project. Create a file `.github/changelog.yaml`
 For example:
@@ -91,7 +107,7 @@ template: |
 
 More documentation in the [changelog](https://github.com/lorislab/changelog) page.
 
-> Changelog could be disabled by setting the inteput `changelog` to `false`.
+> Changelog could be disabled by setting the input `changelog` to `false`.
 
 ### Create release
 

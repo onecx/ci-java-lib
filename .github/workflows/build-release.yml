@@ -12,16 +12,19 @@ on:
         default: true
         required: false
         type: boolean
+      repository:
+        description: 'Maven deployment repository Id'
+        default: 'ossrh'
+        required: true
+        type: string      
 jobs:
   build:
     name: build and deploy project
-    runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
-    #   packages: write    
+    runs-on: ubuntu-latest  
     steps:
       - uses: actions/checkout@v3
-      - name: Set up java
+      - name: Set up Github Packages
+        if: ${{ inputs.repository == 'github' }}
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
