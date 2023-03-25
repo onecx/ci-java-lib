@@ -15,7 +15,7 @@ on:
       repository:
         description: 'Maven deployment repository Id (ossrh,github)'
         default: 'ossrh'
-        required: true
+        required: false
         type: string      
 jobs:
   build:
