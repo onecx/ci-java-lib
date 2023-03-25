@@ -54,6 +54,20 @@ This is default option. These secrets needs to be confired:
 * `OSSRH_GPG_SECRET_KEY` - gpg private key ( gpg --armor --export-secret-keys YOUR_KEY_ID )
 * `OSSRH_GPG_SECRET_KEY_PASSWORD` - gpg passphrase
 
+```xml
+    <!-- Maven central repository -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+```
+
 #### Github Packages
 
 > To use Github Packages as maven repository you need to setup an input variable `repository` to `github`.
