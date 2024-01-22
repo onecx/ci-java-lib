@@ -20,4 +20,4 @@ jobs:
           java-version: ${{ inputs.java-version }}
           cache: 'maven'
       - name: Build project
-        run: mvn -ntp -B -e clean package
+        run: mvn -ntp -B -e clean install
