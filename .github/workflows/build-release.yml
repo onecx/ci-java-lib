@@ -16,7 +16,7 @@ on:
         description: 'Maven deployment repository Id (ossrh,github)'
         default: 'ossrh'
         required: false
-        type: string      
+        type: string
 jobs:
   build:
     name: build and deploy project
@@ -37,11 +37,11 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ inputs.java-version }}
           cache: 'maven'
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE                  
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Update project version
         run: mvn -ntp -B -e versions:set -DnewVersion=${{ github.ref_name }}
       - name: Deploy release to Github Packages
@@ -53,12 +53,12 @@ jobs:
         if: ${{ inputs.repository == 'ossrh' }}
         run: mvn -ntp -B -e deploy -DskipTests -Prelease
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}             
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       - uses: lorislab/install-changelog-action@v1
       - name: Create changelog
-        if: ${{ inputs.changelog }}        
+        if: ${{ inputs.changelog }}
         run: changelog generate --create-release --close-version --file .github/changelog.yaml
         env:
           CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
