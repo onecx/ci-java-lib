@@ -2,6 +2,11 @@ name: release
 on:
   workflow_call:
     inputs:
+      skipTag:
+        description: 'Skips creating a tag.'
+        default: 'true'
+        required: false
+        type: string
       java-version:
         description: 'Java version'
         default: '21'
@@ -27,3 +32,5 @@ jobs:
         run: mvn -Prelease jreleaser:full-release
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_SKIP_TAG: ${{ inputs.skipTag }}
+          JRELEASER_TAG_NAME: ${{ github.ref_name }}
