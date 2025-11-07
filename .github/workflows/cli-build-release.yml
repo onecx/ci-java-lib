@@ -1,0 +1,29 @@
+name: release
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        description: 'Java version'
+        default: '21'
+        required: false
+        type: string
+jobs:
+  build:
+    name: build and deploy project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ inputs.java-version }}
+          cache: 'maven'
+      - name: Update version
+        run: mvn -ntp -B -e versions:set -DnewVersion=${{ github.ref_name }}
+      - name: Build project
+        run: mvn -ntp -B -e -Pdist,native package -Dnisse.compat.osDetector=true
+      - name: Release project
+        run: mvn -Prelease jreleaser:full-release
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

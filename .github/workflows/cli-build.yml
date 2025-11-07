@@ -1,0 +1,32 @@
+name: build
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        description: 'Java version'
+        default: '21'
+        required: false
+        type: string
+jobs:
+  build:
+    name: build project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ inputs.java-version }}
+          cache: 'maven'
+      - name: Build project
+        run: mvn -ntp -B -e -Pdist,native package -Dnisse.compat.osDetector=true
+      - name: Check release project
+        run: mvn -Prelease jreleaser:full-release -Djreleaser.dry.run=true
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: distributions
+          path: target/distributions
+          retention-days: 1
+          if-no-files-found: ignore
