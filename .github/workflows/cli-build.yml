@@ -23,10 +23,12 @@ jobs:
         run: mvn -ntp -B -e -Pdist,native package -Dnisse.compat.osDetector=true
       - name: Check release project
         run: mvn -Prelease jreleaser:full-release -Djreleaser.dry.run=true
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: distributions
-          path: target/distributions
+          path: target/distributions/*.zip
           retention-days: 1
           if-no-files-found: ignore
