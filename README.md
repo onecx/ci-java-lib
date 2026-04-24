@@ -1,6 +1,10 @@
 # Onecx java library Github Actions
 
-[![License](https://img.shields.io/github/license/lorislab/changelog?style=for-the-badge&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
+[![License](https://img.shields.io/github/license/onecx/ci-java-lib?style=for-the-badge&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
+
+Branches:
+
+* v1 - jdk17
 
 Onecx java library actions
 
